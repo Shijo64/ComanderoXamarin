@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ComanderoMovil.Views.DishesView"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+             xmlns:converterPack="clr-namespace:ComanderoMovil.Converters"
+             xmlns:local="clr-namespace:ComanderoMovil.Behaviors"
+             x:Name="DishesPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converterPack:ColorConverter x:Key="ColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar x:Name="SearchBar"
+                       SearchCommand="{Binding TextSearchCommand}"
+                       SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}">
+            </SearchBar>
+            <CollectionView ItemsSource="{Binding Groups}"
+                            HeightRequest="60"
+                            x:Name="GroupsCollection"
+                            SelectionMode="Single"
+                            Margin="5, 0, 5, 0"
+                            ItemSizingStrategy="MeasureAllItems">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Horizontal"
+                                     HorizontalItemSpacing="2"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.Behaviors>
+                    <local:CollectionItemSelectedBehavior ItemTappedCommand="{Binding BindingContext.SelectedItemCommand, Source={x:Reference DishesPage}}"></local:CollectionItemSelectedBehavior>
+                </CollectionView.Behaviors>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                       <StackLayout BackgroundColor="{Binding GroupColor}">
+                           <Label Margin="5, 0, 5, 0"
+                                  Text="{Binding Name}"
+                                  TextColor="{Binding TextColor}"
+                                  VerticalTextAlignment="Center"
+                                  HorizontalTextAlignment="Center"
+                                  FontSize="Small"
+                                  LineBreakMode="WordWrap"
+                                  VerticalOptions="CenterAndExpand"></Label>
+                       </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ListView x:Name="GroupsList"
+                      ItemsSource="{Binding Dishes}"
+                      IsGroupingEnabled="True"
+                      SeparatorColor="Black"
+                      SeparatorVisibility="Default"
+                      HasUnevenRows="True">
+                <ListView.Behaviors>
+                    <behaviorsPack:SelectedItemBehavior Command="{Binding BindingContext.SelectedDishCommand, Source={x:Reference DishesPage}}"></behaviorsPack:SelectedItemBehavior>
+                </ListView.Behaviors>
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="50">
+                            <Button BackgroundColor="LightSlateGray"
+                                    Grid.Column="0"
+                                    BorderColor="Transparent"
+                                    BorderWidth="0"
+                                    Text="{Binding Key}"
+                                    CornerRadius="0"
+                                    TextColor="White"
+                                    HorizontalOptions="Fill"
+                                    Command="{Binding BindingContext.SelectGroupHeader, Source={x:Reference DishesPage}}"
+                                    CommandParameter="{Binding Key}"
+                                    ImageSource="next_disclosure"
+                                    ContentLayout="Right"></Button>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ContentView Padding="2, 5, 5, 0">
+                                <Frame Padding="2"
+                                       HasShadow="False"
+                                       BackgroundColor="White">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Margin="10"
+                                               Text="{Binding Name}"
+                                               TextColor="Black"
+                                               FontSize="Medium"
+                                               HorizontalOptions="StartAndExpand"></Label>
+                                    </StackLayout>
+                                </Frame>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

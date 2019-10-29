@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ComanderoMovil.Views.HomeView"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+        <CollectionView
+            AbsoluteLayout.LayoutFlags="All"
+            AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+            <CollectionView.EmptyView>
+                <Label Text="No hay ordenes para mostrar."
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"></Label>
+            </CollectionView.EmptyView>
+        </CollectionView>
+        <ImageButton
+            Command="{Binding NewOrderCommand}"
+            WidthRequest="70"
+            HeightRequest="70"
+            CornerRadius="35"
+            BackgroundColor="White"
+            Source="circle_add"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            AbsoluteLayout.LayoutBounds="0.95, 0.95, AutoSize, AutoSize"></ImageButton>
+    </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

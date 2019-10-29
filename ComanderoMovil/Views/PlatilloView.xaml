@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ComanderoMovil.Views.PlatilloView"
+    xmlns:converterPack="clr-namespace:Xamarin.Forms.ConvertersPack;assembly=Xamarin.Forms.ConvertersPack">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converterPack:CurrencyConverter x:Key="CurrencyConverter"></converterPack:CurrencyConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="{Binding NombrePlatillo}"
+                       FontSize="Title"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"></Label>
+                <Label Text="Precio"
+                       FontSize="Subtitle"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"></Label>
+                <Label Text="{Binding precioPlatillo, Converter={StaticResource CurrencyConverter}}"
+                       FontSize="Subtitle"
+                       HorizontalOptions="Center"></Label>
+                <Label Text="Modificadores"
+                       FontAttributes="Bold"
+                       FontSize="Large"
+                       HorizontalOptions="Center"></Label>
+                <ListView ItemsSource="{Binding Modificadores}"
+                          HasUnevenRows="True"
+                          SeparatorVisibility="Default"
+                          SeparatorColor="Black">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="50, 10, 10, 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox Grid.Column="0"
+                                              Color="#102536"></CheckBox>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding nombre}"
+                                           VerticalOptions="Center"></Label>
+                                    <Label Grid.Column="2"
+                                           Text="Precio:"
+                                           VerticalOptions="Center"></Label>
+                                    <Label Grid.Column="3"
+                                           Text="{Binding precio1, Converter={StaticResource CurrencyConverter}}"
+                                           VerticalOptions="Center"></Label>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Footer>
+                        <ContentView>
+                            <Frame HasShadow="False"
+                                   Padding="50">
+                                <Button Padding="20"
+                                        Text="Agregar Orden"
+                                        TextColor="White"
+                                        BackgroundColor="#102536"></Button>
+                            </Frame>
+                        </ContentView>
+                    </ListView.Footer>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
